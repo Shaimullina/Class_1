@@ -19,7 +19,7 @@ class Book:
         self.pages = pages
 
 
-class Library(object):
+class Library(Book):
     def __init__(self):
         self.books = []
 
@@ -39,11 +39,8 @@ class Library(object):
                 books_by_author.append(book)
         return books_by_author
 
-    def get_books_sorted_by_year(self, year):
-        if self.year == year > 0:
-            return sorted(self.books, key=lambda x: x.year)
-        else:
-            False
+    def get_books_sorted_by_year(self):
+        self.books.sort(key=lambda book: book.year)
 
 
 # Пример использования
