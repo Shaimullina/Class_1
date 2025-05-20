@@ -14,16 +14,6 @@ class BankAccount:
         self.name = name
         self.balance = balance
 
-    def add_account(self, account):
-        self.account = add_account
-        add_account = []
-        self.account.append(account)
-
-
-class BankSystem:
-    def __init__(self, amount):
-        self.amount = amount
-
     def deposit(self, amount):
         self.balance += amount
         print(f"{self.name} Депозит {amount} руб. Текущий баланс: {self.balance}")
@@ -36,14 +26,31 @@ class BankSystem:
             print("Недостаточно средств.")
 
 
+class BankSystem(BankAccount):
+    def __init__(self, name, accounts=[]):
+        self.name = name
+        self.accounts = accounts
+
+    def add_account(self, account):
+        self.accounts.append(account)
+
+    def transfer(self, account_from, account_to, amount):
+        if account_from.balance >= amount:
+            account_to.withdraw(amount)
+            account_from.deposit(amount)
+            print("Деньги переведены")
+        else:
+            print("Ошибка перевода, проверьте баланс счета")
+
+
 # Пример использования
 account1 = BankAccount("12345", "Иван Иванов", 1000)
 account2 = BankAccount("67890", "Петр Петров", 2000)
-bank = BankSystem(345)
+bank = BankSystem(456)
 bank.add_account(account1)
 bank.add_account(account2)
 account1.deposit(500)
 account2.withdraw(300)
-bank.transfer("12345", "67890", 200)
+bank.transfer(account1, account2, 200)
 print(account1)
 print(account2)
